@@ -43,3 +43,46 @@
         </ol>
     </section>
 </div>
+
+
+<div>
+    <table id="MyTable">
+        <thead>
+            <tr>
+                <th>[EventId]</th>
+                <th>[EventTitle]</th>
+                <th>[Technology]</th>
+                <th>[StartingDate]</th>
+                <th>[RegistrationLink]</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<link href="//cdn.datatables.net/1.9.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.9.4/js/jquery.dataTables.min.js"> </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#MyTable").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "/Home/LoadData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "EventId", "name": "EventId", "autowidth": true },
+                    { "data": "EventTitle", "name": "EventTitle", "autowidth": true },
+                    { "data": "Technology", "name": "Technology", "autowidth": true },
+                    { "data": "StartingDate", "name": "StartingDate", "autowidth": true },
+                    { "data": "RegistrationLink", "name": "RegistrationLink", "autowidth": true }
+                ]
+            });
+        });
+
+    </script>
+}

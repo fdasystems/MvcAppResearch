@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Test Datatable server side MVC</h2>
+
+
+<div>
+    <table id="MyTable">
+        <thead>
+            <tr>
+                <th>EventId</th>
+                <th>EventTitle</th>
+                <th>Technology</th>
+                <th>StartingDate</th>
+                <th>RegistrationLink</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+@Html.Hidden("URLEndpointName", Url.Action("LoadData", "TestDT"));
+
+<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+@section scripts{ 
+<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"> </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#MyTable").DataTable({
+                "processing":true,
+                "serverSide": true,
+                "ajax": {
+                    "url": $("#URLEndpointName").val(),
+                    "type": "POST",
+                    "datatype": "json",
+                    "contentType": "application/json; charset=utf-8"
+                },
+                "columns": [
+                    {"data":"EventId", "name":"EventId", "autowidth":true},
+                    {"data":"EventTitle", "name":"EventTitle", "autowidth":true},
+                    {"data":"Technology", "name":"Technology", "autowidth":true},
+                    {"data":"StartingDate", "name":"StartingDate", "autowidth":true},
+                    {"data":"RegistrationLink", "name":"RegistrationLink", "autowidth":true}
+                ]
+            });
+        });
+
+    </script>
+      
+}
